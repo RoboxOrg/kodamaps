@@ -71,6 +71,13 @@
       jQuery('#kodamaps-txt-input-lng').val(marker.getPosition().lng());
       inputAddress();
     });
+    google.maps.event.addListener(marker, 'dragend', function() {
+      console.log(marker.getPosition().lat());
+      console.log(marker.getPosition().lng());
+      jQuery('#kodamaps-txt-input-lat').val(marker.getPosition().lat());
+      jQuery('#kodamaps-txt-input-lng').val(marker.getPosition().lng());
+      inputAddress();
+    });
     jQuery('#kodamaps-txt-input-address, #kodamaps-txt-input-lat, #kodamaps-txt-input-lng').change(function() {
       if (this.id === 'kodamaps-txt-input-address') {
         inputLatLng();
