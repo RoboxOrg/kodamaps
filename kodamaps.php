@@ -232,7 +232,7 @@ class Kodamaps_Plugin
           $positionStyle = 'margin-left: auto';
         }
         if (is_single() || is_page()) {
-            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'; '.$positionStyle.';"></div>';
+            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'; '.$positionStyle.'; max-width: 100%;"></div>';
         }
     }
 
@@ -260,8 +260,14 @@ class Kodamaps_Plugin
         wp_localize_script('kodamaps-js-script', 'kodamaps_posts', $data);
         $width = $width === '' ? '100%' : $width.'px';
         $height = $height === '' ? '450px' : $height.'px';
+        $positionStyle = 'margin-right: auto';
+        if ($position === 'center') {
+          $positionStyle = 'margin: 0 auto';
+        } else if ($position === 'right') {
+          $positionStyle = 'margin-left: auto';
+        }
         if (is_single() || is_page()) {
-            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'"></div>';
+            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'; '.$positionStyle.'; max-width: 100%;"></div>';
         }
     }
 }
