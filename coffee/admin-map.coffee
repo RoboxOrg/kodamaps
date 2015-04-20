@@ -23,7 +23,7 @@ initialize = ->
           marker.position = latLng
           marker.setMap map
           map.panTo new google.maps.LatLng(marker.getPosition().k,marker.getPosition().D)
-          map.setZoom 16
+          # map.setZoom 16
           jQuery('#kodamaps-txt-input-lat').val marker.getPosition().k
           jQuery('#kodamaps-txt-input-lng').val marker.getPosition().D
           jQuery('.kodamaps-postdata-address').val address
@@ -43,7 +43,7 @@ initialize = ->
           marker.position = latLng
           marker.setMap map
           map.panTo new google.maps.LatLng(marker.getPosition().k, marker.getPosition().D)
-          map.setZoom 16
+          # map.setZoom 16
           jQuery('#kodamaps-txt-input-address').val address
           jQuery('#kodamaps-txt-input-lat').val marker.getPosition().k
           jQuery('#kodamaps-txt-input-lng').val marker.getPosition().D
