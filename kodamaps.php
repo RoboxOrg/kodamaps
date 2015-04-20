@@ -211,14 +211,14 @@ class Kodamaps_Plugin
             wp_enqueue_script('kodamaps-js-script');
             return $this->displayAllPostOnMap($width, $height, $addr, $lat, $lng, $zoom, $position);
         } else if ($type === 'notuse') {
-            // wp_register_script (
-            //     'kodamaps-js-script',
-            //     plugins_url('js/notusepost-map.js', __FILE__),
-            //     array('jquery', 'google-maps-api'),
-            //     filemtime(dirname(__FILE__).'/js/notusepost-map.js'),
-            //     true
-            // );
-            // wp_enqueue_script('kodamaps-js-script');
+            wp_register_script (
+                'kodamaps-js-script',
+                plugins_url('js/notusepost-map.js', __FILE__),
+                array('jquery', 'google-maps-api'),
+                filemtime(dirname(__FILE__).'/js/notusepost-map.js'),
+                true
+            );
+            wp_enqueue_script('kodamaps-js-script');
             return $this->displayNotusePostOnMap($width, $height, $addr, $lat, $lng, $zoom, $position, $no);
         } else {
             wp_register_script (
