@@ -180,7 +180,8 @@ class Kodamaps_Plugin
             'addr' => '',
             'lat' => '',
             'lng' => '',
-            'zoom' => ''
+            'zoom' => '',
+            'position' => 'left'
         );
         $merged_atts = shortcode_atts($default_atts, $atts);
         extract($merged_atts);
@@ -194,7 +195,7 @@ class Kodamaps_Plugin
                 true
             );
             wp_enqueue_script('kodamaps-js-script');
-            return $this->displayAllPostOnMap($width, $height, $addr, $lat, $lng, $zoom);
+            return $this->displayAllPostOnMap($width, $height, $addr, $lat, $lng, $zoom, $position);
         } else {
             wp_register_script (
                 'kodamaps-js-script',
@@ -204,11 +205,11 @@ class Kodamaps_Plugin
                 true
             );
             wp_enqueue_script('kodamaps-js-script');
-            return $this->displaySinglePostOnMap($width, $height, $addr, $lat, $lng, $zoom);
+            return $this->displaySinglePostOnMap($width, $height, $addr, $lat, $lng, $zoom, $position);
         }
     }
 
-    private function displaySinglePostOnMap($width, $height, $centerAddr, $centerLat, $centerLng, $zoom) {
+    private function displaySinglePostOnMap($width, $height, $centerAddr, $centerLat, $centerLng, $zoom, $position) {
         $id = get_the_ID();
         $lat = get_post_meta($id, 'kodamaps_lat_field', true);
         $lng = get_post_meta($id, 'kodamaps_lng_field', true);
@@ -224,12 +225,18 @@ class Kodamaps_Plugin
         wp_localize_script('kodamaps-js-script', 'kodamaps_post', $data);
         $width = $width === '' ? '100%' : $width.'px';
         $height = $height === '' ? '450px' : $height.'px';
+        $positionStyle = 'margin-right: auto';
+        if ($position === 'center') {
+          $positionStyle = 'margin: 0 auto';
+        } else if ($position === 'right') {
+          $positionStyle = 'margin-left: auto';
+        }
         if (is_single() || is_page()) {
-            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'"></div>';
+            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'; '.$positionStyle.'; max-width: 100%;"></div>';
         }
     }
 
-    private function displayAllPostOnMap($width, $height, $centerAddr, $centerLat, $centerLng, $zoom) {
+    private function displayAllPostOnMap($width, $height, $centerAddr, $centerLat, $centerLng, $zoom, $position) {
         $allposts = get_posts('numberposts=-1');
         $data = array(
             'postInfo' => array(),
@@ -253,8 +260,14 @@ class Kodamaps_Plugin
         wp_localize_script('kodamaps-js-script', 'kodamaps_posts', $data);
         $width = $width === '' ? '100%' : $width.'px';
         $height = $height === '' ? '450px' : $height.'px';
+        $positionStyle = 'margin-right: auto';
+        if ($position === 'center') {
+          $positionStyle = 'margin: 0 auto';
+        } else if ($position === 'right') {
+          $positionStyle = 'margin-left: auto';
+        }
         if (is_single() || is_page()) {
-            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'"></div>';
+            return '<div id="map_canvas" style="width: '.$width.'; height: '.$height.'; '.$positionStyle.'; max-width: 100%;"></div>';
         }
     }
 }
