@@ -15,6 +15,7 @@ class Kodamaps_Plugin
         add_action('admin_enqueue_scripts', array($this, 'enqueue_kodamaps_admin_js'));
         add_action('admin_menu', array($this,'add_custom_box'));
         add_action('save_post', array($this,'save_postdata'));
+        add_action('wp_enqueue_scripts', array($this, 'register_kodamaps_style'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_kodamaps_js'));
         add_shortcode('kodamaps', array($this,'kodamaps_map_shortcode'));
     }
@@ -158,6 +159,18 @@ class Kodamaps_Plugin
         }
 
         return $mypostdata;
+    }
+
+    public function register_kodamaps_style()
+    {
+      wp_register_style (
+        'kodamaps.css',
+        plugins_url('css/kodamaps.css',__FILE__),
+        array(),
+        '1.0.0',
+        'all'
+      );
+      wp_enqueue_style('kodamaps.css');
     }
 
     public function enqueue_kodamaps_js()

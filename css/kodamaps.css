@@ -1,0 +1,9 @@
+#map_canvas lavel {
+  width: auto;
+  display: inline;
+}
+
+#map_canvas img {
+  max-width: none;
+  max-height: none;
+}
